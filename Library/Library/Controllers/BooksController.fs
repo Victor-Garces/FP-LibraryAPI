@@ -6,7 +6,7 @@ open Library.Models
 
 [<Route("api/books")>]
 [<ApiController>]
-type BooksController (booksServices : IBooksService) =
+type BooksController (booksServices : IBooksService, pagesServices : IPagesService) =
     inherit ControllerBase ()
 
     [<HttpGet>]
@@ -15,7 +15,12 @@ type BooksController (booksServices : IBooksService) =
         ActionResult<List<Book>>(books)
 
     [<HttpGet("{id}")>]
-    member __.Get(id : int64) =
+    member __.GetBook(id : int64) =
         let book = booksServices.GetById(id)
         ActionResult<Book>(book)
+
+    [<HttpGet("{id}/pages/{pageId}")>]
+    member __.GetPage(pageId : int64) =
+        let page = pagesServices.GetById(pageId)
+        ActionResult<Page>(page)
 

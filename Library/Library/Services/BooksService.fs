@@ -19,4 +19,5 @@ type BookService (booksRepository: BooksRepository) =
                     Id = int64(0)
                     Title = ""
                     Author = ""
+                    Pages = []
                 }

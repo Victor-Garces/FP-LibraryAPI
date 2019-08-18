@@ -19,13 +19,9 @@ type Startup private () =
     member __.ConfigureServices(services: IServiceCollection) =
         // Add framework services.
         services.AddDbContext<LibraryContext> (fun (options : DbContextOptionsBuilder) -> 
-        options.UseSqlServer(__.Configuration.GetConnectionString("LibraryDatabase")) |> ignore |> ignore
-        |> ignore) |> ignore
-        
-        services.AddScoped<IBooksService, BookService>() |> ignore
-
-        services.AddScoped<BooksRepository, BooksRepository>() |> ignore
-
+        options.UseSqlServer(__.Configuration.GetConnectionString("LibraryDatabase")) |> ignore |> ignore |> ignore) |> ignore
+        __.BuildServices (services)
+        __.BuildRepositories (services)
         services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1) |> ignore
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,3 +36,12 @@ type Startup private () =
         app.UseMvc() |> ignore
 
     member val Configuration : IConfiguration = null with get, set
+
+    member __.BuildServices (services : IServiceCollection) =
+        services.AddScoped<IBooksService, BookService>() |> ignore
+        services.AddScoped<IPagesService, PageService>() |> ignore
+
+    member __.BuildRepositories (services : IServiceCollection) =
+        services.AddScoped<BooksRepository, BooksRepository>() |> ignore
+        services.AddScoped<PagesRepository, PagesRepository>() |> ignore
+        
