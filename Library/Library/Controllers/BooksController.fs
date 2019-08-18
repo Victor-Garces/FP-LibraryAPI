@@ -22,5 +22,12 @@ type BooksController (booksServices : IBooksService, pagesServices : IPagesServi
     [<HttpGet("{id}/pages/{pageId}")>]
     member __.GetPage(pageId : int64) =
         let page = pagesServices.GetById(pageId)
-        ActionResult<Page>(page)
+        let newPage = { page with Content = __.GetPageHtmlFormat (page.Content) }
+        ActionResult<Page>(newPage)
+
+    member __.GetPageHtmlFormat (content : string) =
+        let header = "<html><head></head><body>"
+        let paragrahps = content.Split("\r\n") |> Seq.filter (fun a -> a <> "") |> Seq.map (fun a -> "<p>"  + a + "<p/>") |> String.concat ""
+        let footer = "</body></html>"
+        header + paragrahps + footer
 
