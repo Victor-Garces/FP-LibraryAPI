@@ -19,7 +19,7 @@ type Startup private () =
     member __.ConfigureServices(services: IServiceCollection) =
         // Add framework services.
         services.AddDbContext<LibraryContext> (fun (options : DbContextOptionsBuilder) -> 
-        options.UseSqlServer("Server=database-library.c6v5baofubzt.us-east-1.rds.amazonaws.com,1521;Initial Catalog=Library;Persist Security Info=False;User ID=sa;Password=sa123456789;") 
+        options.UseSqlServer(__.Configuration.GetConnectionString("LibraryDatabase")) |> ignore |> ignore
         |> ignore) |> ignore
         
         services.AddScoped<IBooksService, BookService>() |> ignore
