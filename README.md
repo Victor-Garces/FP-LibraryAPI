@@ -1,31 +1,37 @@
-# LibraryAPI
+# Library API - ASP.NET Core Web Application, SQL Server, EF Core Tutorial
 
-A [Giraffe](https://github.com/giraffe-fsharp/Giraffe) web application, which has been created via the `dotnet new giraffe` command.
+Library API - ASP.NET Core Web Application, SQL Server, EF Core
 
-## Build and test the application
+## Requirements
 
-### Windows
+1. F# - 4.6.x
 
-Run the `build.bat` script in order to restore, build and test (if you've selected to include tests) the application:
+2. .NET Core - 2.1.x
 
-```
-> ./build.bat
-```
+3. MS-SQL - 14.0  
 
-### Linux/macOS
+## Steps to Setup
 
-Run the `build.sh` script in order to restore, build and test (if you've selected to include tests) the application:
+**1. Clone the application**
 
-```
-$ ./build.sh
+```bash
+git clone https://github.com/Victor-Garces/FP-LibraryAPI.git
 ```
 
-## Run the application
+**2. Create MS-SQL database**
 
-After a successful build you can start the web application by executing the following command in your terminal:
-
-```
-dotnet run src/LibraryAPI
+```bash
+create database Library
 ```
 
-After the application has started visit [http://localhost:5000](http://localhost:5000) in your preferred browser.`
+**3. Change MS-SQL information as per your installation**
+
++ open `appsettings.json` file and set your connection string information
+
+**4. Build and run the app using maven**
+
+```bash
+dotnet run
+```
+
+The app will start running at <https://localhost:5001> and <http://localhost:5000>

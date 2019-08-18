@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="DTOs\BookDTO.fs" />
+    <Compile Include="Models\Book.fs" />
+    <Compile Include="Persistence\LibraryContext.fs" />
+    <Compile Include="Repositories\BooksRepository.fs" />
+    <Compile Include="Repositories\PagesRepository.fs" />
+    <Compile Include="Services\BooksService.fs" />
+    <Compile Include="Services\PagesService.fs" />
+    <Compile Include="Controllers\BooksController.fs" />
+    <Compile Include="Startup.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+  </ItemGroup>
+
+</Project>
