@@ -31,7 +31,7 @@ create database Library
 **4. Build and run the app using maven**
 
 ```bash
-dotnet run --project Library
+dotnet run
 ```
 
 The app will start running at <https://localhost:5001> and <http://localhost:5000>
