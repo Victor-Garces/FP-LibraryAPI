@@ -9,27 +9,28 @@ open Library.Services
 open Library.Persistence
 open Microsoft.EntityFrameworkCore
 open Library.Repositories
+open Newtonsoft.Json
 
 type Startup private () =
     new (configuration: IConfiguration) as __ =
         Startup() then
         __.Configuration <- configuration
 
-    // This method gets called by the runtime. Use this method to add services to the container.
     member __.ConfigureServices(services: IServiceCollection) =
-        // Add framework services.
-        services.AddDbContext<LibraryContext> (fun (options : DbContextOptionsBuilder) -> 
-        options.UseSqlServer(__.Configuration.GetConnectionString("LibraryDatabase")) |> ignore |> ignore |> ignore) |> ignore
+        services.AddDbContext<LibraryContext> (fun (options : DbContextOptionsBuilder) ->  
+            options.UseSqlServer(__.Configuration.GetConnectionString("LibraryDatabase")) |> ignore |> ignore |> ignore) |> ignore
+
         __.BuildServices (services)
         __.BuildRepositories (services)
-        services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1) |> ignore
 
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        services.AddMvc()
+                .AddJsonOptions(fun options -> options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore |> ignore) 
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1) |> ignore
+
     member __.Configure(app: IApplicationBuilder, env: IHostingEnvironment) =
         if (env.IsDevelopment()) then
             app.UseDeveloperExceptionPage() |> ignore
         else
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts() |> ignore
 
         app.UseHttpsRedirection() |> ignore

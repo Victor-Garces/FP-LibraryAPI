@@ -6,7 +6,6 @@ type Book =
         Id : int64
         Title : string
         Author : string
-        Pages : Page list
     }
 and [<CLIMutable>] Page = 
     {

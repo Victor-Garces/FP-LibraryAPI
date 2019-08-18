@@ -9,7 +9,7 @@ type IBooksService =
 
 type BookService (booksRepository: BooksRepository) = 
     interface IBooksService with
-        member __.GetAll () = booksRepository.GetAll() |> Seq.toList
+        member __.GetAll () = booksRepository.GetAll()
         member __.GetById (id : int64) =
             let result = booksRepository.GetBookById(id)
             match result with
@@ -19,5 +19,4 @@ type BookService (booksRepository: BooksRepository) =
                     Id = int64(0)
                     Title = ""
                     Author = ""
-                    Pages = []
                 }

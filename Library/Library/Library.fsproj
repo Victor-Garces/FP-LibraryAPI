@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="DTOs\BookDTO.fs" />
     <Compile Include="Models\Book.fs" />
     <Compile Include="Persistence\LibraryContext.fs" />
     <Compile Include="Repositories\BooksRepository.fs" />
