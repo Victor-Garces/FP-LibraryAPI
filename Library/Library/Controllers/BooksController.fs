@@ -12,18 +12,23 @@ type BooksController (booksServices : IBooksService, pagesServices : IPagesServi
 
     [<HttpGet>]
     member __.Get() =
-        let books = booksServices.GetAll()
+        let books = booksServices.GetAll ()
         ActionResult<List<Book>>(books)
 
     [<HttpGet("{id}")>]
     member __.GetBook(id : int64) =
-        let book = booksServices.GetById(id)
+        let book = booksServices.GetById (id)
         let pagesIds = pagesServices.GetAllByBookId(book.Id) |> Seq.map (fun page -> page.Id) |> Seq.toList
         let newBook = __.BuildBookDTOP(book.Id, book.Title, book.Author, pagesIds)
         ActionResult<BookDTO>(newBook)
 
     [<HttpGet("{id}/pages/{pageId}")>]
     member __.GetPage(pageId : int64) =
+        let page = pagesServices.GetById (pageId)
+        ActionResult<Page>(page)
+
+    [<HttpGet("{id}/pages/{pageId}/html")>]
+    member __.GetPageWithHtmlFormat (pageId : int64) =
         let page = pagesServices.GetById(pageId)
         let newPage = { page with Content = __.GetPageHtmlFormat (page.Content) }
         ActionResult<Page>(newPage)
